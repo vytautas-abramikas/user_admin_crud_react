@@ -1,6 +1,6 @@
-# Users' Administration Panel CRUD:
+## Users' Administration Panel CRUD
 
-# React + TypeScript + Tailwind + JSON Server demo
+### React + TypeScript + Tailwind + JSON Server demo
 
 npm install  
 npm run dev

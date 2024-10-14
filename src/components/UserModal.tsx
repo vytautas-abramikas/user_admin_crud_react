@@ -73,11 +73,15 @@ export const UserModal = () => {
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500">
+              <label
+                className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500"
+                htmlFor="input_username"
+              >
                 Username
               </label>
               <div className="relative group">
                 <input
+                  id="input_username"
                   value={userState.username}
                   onChange={(e) =>
                     setUserState((p) => ({ ...p, username: e.target.value }))
@@ -96,11 +100,15 @@ export const UserModal = () => {
               </div>
             </div>
             <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500">
+              <label
+                className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500"
+                htmlFor="input_name"
+              >
                 Name
               </label>
               <div className="relative group">
                 <input
+                  id="input_name"
                   value={userState.name}
                   onChange={(e) =>
                     setUserState((p) => ({ ...p, name: e.target.value }))
@@ -119,11 +127,15 @@ export const UserModal = () => {
               </div>
             </div>
             <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500">
+              <label
+                className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500"
+                htmlFor="input_email"
+              >
                 Email
               </label>
               <div className="relative group">
                 <input
+                  id="input_email"
                   onChange={(e) =>
                     setUserState((p) => ({ ...p, email: e.target.value }))
                   }
@@ -142,10 +154,14 @@ export const UserModal = () => {
               </div>
             </div>
             <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500">
+              <label
+                className="block text-gray-700 font-semibold mb-2 after:content-['*'] after:text-red-500"
+                htmlFor="select_role"
+              >
                 Role
               </label>
               <select
+                id="select_role"
                 onChange={(e) =>
                   setUserState((p) => ({
                     ...p,
