@@ -46,7 +46,11 @@ export const UserModal = () => {
   };
 
   const handleHideUserModal = (mode: "add" | "edit") => {
-    mode === "add" ? hideAddUserModal() : hideEditUserModal();
+    if (mode === "add") {
+      hideAddUserModal();
+    } else {
+      hideEditUserModal();
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
