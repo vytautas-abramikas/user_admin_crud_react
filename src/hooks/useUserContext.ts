@@ -17,12 +17,7 @@ export const useUserContext = () => {
     addUser,
     updateUser,
     deleteUser,
-    showAddUserModal,
-    hideAddUserModal,
-    showEditUserModal,
-    hideEditUserModal,
-    showRemoveUserModal,
-    hideRemoveUserModal,
+    setModalVisibility,
   } = context;
 
   return {
@@ -38,11 +33,6 @@ export const useUserContext = () => {
     addUser,
     updateUser,
     deleteUser,
-    showAddUserModal,
-    hideAddUserModal,
-    showEditUserModal,
-    hideEditUserModal,
-    showRemoveUserModal,
-    hideRemoveUserModal,
+    setModalVisibility,
   };
 };

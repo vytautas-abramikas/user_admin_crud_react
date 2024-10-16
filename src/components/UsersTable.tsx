@@ -1,23 +1,18 @@
 import { useUserContext } from "../hooks/useUserContext";
 
 export const UsersTable = () => {
-  const {
-    users,
-    setUserModalMode,
-    setSelectedUserId,
-    showEditUserModal,
-    showRemoveUserModal,
-  } = useUserContext();
+  const { users, setUserModalMode, setSelectedUserId, setModalVisibility } =
+    useUserContext();
 
   const handleShowEditUserModal = (id: string) => {
     setSelectedUserId(id);
     setUserModalMode("edit");
-    showEditUserModal();
+    setModalVisibility("edit", true);
   };
 
   const handleShowRemoveUserModal = (id: string) => {
     setSelectedUserId(id);
-    showRemoveUserModal();
+    setModalVisibility("remove", true);
   };
 
   return (

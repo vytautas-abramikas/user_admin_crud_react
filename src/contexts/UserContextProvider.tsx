@@ -29,12 +29,10 @@ export const UserContext = createContext<{
   addUser: (user: TUser) => void;
   updateUser: (user: TUser) => void;
   deleteUser: (id: string) => void;
-  showAddUserModal: () => void;
-  hideAddUserModal: () => void;
-  showEditUserModal: () => void;
-  hideEditUserModal: () => void;
-  showRemoveUserModal: () => void;
-  hideRemoveUserModal: () => void;
+  setModalVisibility: (
+    modal: "add" | "edit" | "remove",
+    visibility: boolean
+  ) => void;
 }>({
   state: initialState,
   filteredUsers: [],
@@ -44,12 +42,7 @@ export const UserContext = createContext<{
   addUser: () => null,
   updateUser: () => null,
   deleteUser: () => null,
-  showAddUserModal: () => null,
-  hideAddUserModal: () => null,
-  showEditUserModal: () => null,
-  hideEditUserModal: () => null,
-  showRemoveUserModal: () => null,
-  hideRemoveUserModal: () => null,
+  setModalVisibility: () => null,
 });
 
 const userReducer = (state: TState, action: TAction): TState => {
@@ -76,18 +69,24 @@ const userReducer = (state: TState, action: TAction): TState => {
       };
     case "SET_USERS":
       return { ...state, users: action.payload };
-    case "SHOW_ADD_USER_MODAL":
-      return { ...state, isVisibleAddUserModal: true };
-    case "HIDE_ADD_USER_MODAL":
-      return { ...state, isVisibleAddUserModal: false };
-    case "SHOW_EDIT_USER_MODAL":
-      return { ...state, isVisibleEditUserModal: true };
-    case "HIDE_EDIT_USER_MODAL":
-      return { ...state, isVisibleEditUserModal: false };
-    case "SHOW_REMOVE_USER_MODAL":
-      return { ...state, isVisibleRemoveUserModal: true };
-    case "HIDE_REMOVE_USER_MODAL":
-      return { ...state, isVisibleRemoveUserModal: false };
+    case "SET_MODAL_VISIBILITY":
+      switch (action.payload.modal) {
+        case "add":
+          return { ...state, isVisibleAddUserModal: action.payload.visibility };
+        case "edit":
+          return {
+            ...state,
+            isVisibleEditUserModal: action.payload.visibility,
+          };
+        case "remove":
+          return {
+            ...state,
+            isVisibleRemoveUserModal: action.payload.visibility,
+          };
+        default:
+          return state;
+      }
+
     default:
       return state;
   }
@@ -114,7 +113,7 @@ export const UserContextProvider: React.FC<{ children: ReactNode }> = ({
       .post("http://localhost:3001/users", user)
       .then((response) => {
         dispatch({ type: "ADD_USER", payload: response.data });
-        hideAddUserModal();
+        setModalVisibility("add", false);
       })
       .catch((error) => {
         console.error("Error adding user:", error);
@@ -126,7 +125,7 @@ export const UserContextProvider: React.FC<{ children: ReactNode }> = ({
       .put(`http://localhost:3001/users/${user.id}`, user)
       .then((response) => {
         dispatch({ type: "UPDATE_USER", payload: response.data });
-        hideEditUserModal();
+        setModalVisibility("edit", false);
       })
       .catch((error) => {
         console.error("Error updating user:", error);
@@ -138,7 +137,7 @@ export const UserContextProvider: React.FC<{ children: ReactNode }> = ({
       .delete(`http://localhost:3001/users/${id}`)
       .then(() => {
         dispatch({ type: "DELETE_USER", payload: id });
-        hideRemoveUserModal();
+        setModalVisibility("remove", false);
       })
       .catch((error) => {
         console.error("Error deleting user:", error);
@@ -170,16 +169,11 @@ export const UserContextProvider: React.FC<{ children: ReactNode }> = ({
   const setSelectedUserId = (id: string) =>
     dispatch({ type: "SET_SELECTED_USER_ID", payload: id });
 
-  const showAddUserModal = () => dispatch({ type: "SHOW_ADD_USER_MODAL" });
-  const hideAddUserModal = () => dispatch({ type: "HIDE_ADD_USER_MODAL" });
-  const showEditUserModal = () => dispatch({ type: "SHOW_EDIT_USER_MODAL" });
-  const hideEditUserModal = () => dispatch({ type: "HIDE_EDIT_USER_MODAL" });
-
-  const showRemoveUserModal = () =>
-    dispatch({ type: "SHOW_REMOVE_USER_MODAL" });
-
-  const hideRemoveUserModal = () =>
-    dispatch({ type: "HIDE_REMOVE_USER_MODAL" });
+  const setModalVisibility = (
+    modal: "add" | "edit" | "remove",
+    visibility: boolean
+  ) =>
+    dispatch({ type: "SET_MODAL_VISIBILITY", payload: { modal, visibility } });
 
   return (
     <UserContext.Provider
@@ -192,12 +186,7 @@ export const UserContextProvider: React.FC<{ children: ReactNode }> = ({
         addUser,
         updateUser,
         deleteUser,
-        showAddUserModal,
-        hideAddUserModal,
-        showEditUserModal,
-        hideEditUserModal,
-        showRemoveUserModal,
-        hideRemoveUserModal,
+        setModalVisibility,
       }}
     >
       {children}

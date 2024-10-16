@@ -1,7 +1,7 @@
 import { useUserContext } from "../hooks/useUserContext";
 
 export const RemoveUserModal = () => {
-  const { users, selectedUserId, deleteUser, hideRemoveUserModal } =
+  const { users, selectedUserId, deleteUser, setModalVisibility } =
     useUserContext();
 
   return (
@@ -21,7 +21,7 @@ export const RemoveUserModal = () => {
           <div className="flex justify-between">
             <button
               className="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md transition duration-300"
-              onClick={hideRemoveUserModal}
+              onClick={() => setModalVisibility("remove", false)}
             >
               No
             </button>

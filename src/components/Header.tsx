@@ -1,12 +1,12 @@
 import { useUserContext } from "../hooks/useUserContext";
 
 export const Header = () => {
-  const { setFilterTerm, setUserModalMode, showAddUserModal } =
+  const { setFilterTerm, setUserModalMode, setModalVisibility } =
     useUserContext();
 
   const handleShowAddUserModal = () => {
     setUserModalMode("add");
-    showAddUserModal();
+    setModalVisibility("add", true);
   };
 
   return (
