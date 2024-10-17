@@ -13,8 +13,8 @@ export const App = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen p-6">
-        <div className="container mx-auto bg-white shadow-lg rounded-lg p-6">
+      <div className="lg:bg-gradient-to-r from-blue-100 to-purple-100 lg:min-h-screen lg:p-6">
+        <div className="lg:container lg:mx-auto bg-white lg:shadow-lg lg:rounded-lg p-6">
           <Header />
           <UsersTable />
           {isVisibleAddUserModal && <UserModal />}
